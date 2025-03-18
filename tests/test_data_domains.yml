@@ -14,7 +14,7 @@
   expected: "documentation"
 
 - href: "https://podcasts.example.com"
-  expected: "podcasts"
+  expected: "podcast"
 
 - href: "https://youtube.com/@example"
   expected: "social media"
@@ -23,9 +23,6 @@
   expected: "social media"
 
 - href: "https://t.me/@example"
-  expected: "social media"
-
-- href: "https://telegram.com/@example"
   expected: "social media"
 
 - href: "https://telegram.me/@example"

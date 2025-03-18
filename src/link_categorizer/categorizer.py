@@ -1,6 +1,8 @@
 import re
 from urllib.parse import urlparse
 
+TEXT_MAX_LENGTH = 50
+
 # Domain matchers: (category, regex pattern)
 DOMAIN_MATCHERS = [
     ("blog", r"blog\..*"),
@@ -164,13 +166,13 @@ def categorize_link(link_info: dict) -> str | None:  # noqa: C901, PLR0911, PLR0
             return category
 
     # Check title matchers
-    if title:
+    if title and len(title) < TEXT_MAX_LENGTH:
         for category, pattern in TEXT_MATCHERS:
             if re.search(pattern, title, re.IGNORECASE):
                 return category
 
     # Check anchor text matchers
-    if anchor_text:
+    if anchor_text and len(anchor_text) < TEXT_MAX_LENGTH:
         for category, pattern in TEXT_MATCHERS:
             if re.search(pattern, anchor_text, re.IGNORECASE):
                 return category

@@ -18,3 +18,6 @@
   title: "contact us "
   expected: "contact"
 
+- href: "https://example.com/298394283794832"
+  title: "This is the super long title where the meaning is now lost but contact us anyway "
+  expected: "unknown"
