@@ -31,6 +31,9 @@
 - href: "https://telegram.org/@example"
   expected: "social media"
 
+- href: "https://www.tiktok.com/"
+  expected: "social media"
+
 - href: "https://job-boards.greenhouse.io"
   expected: "jobs"
 
@@ -42,3 +45,4 @@
 
 - href: "https://jobs.ashbyhq.com/"
   expected: "jobs"
+

@@ -27,6 +27,7 @@ DOMAIN_MATCHERS = [
     ("social media", r"twitch\.(com|tv)$"),
     ("social media", r"(facebook|fb)\.com$"),
     ("social media", r"linkedin\.com"),
+    ("social media", r"tiktok\.com$"),
     ("social media", r"twitter\.com$|^x\.com$"),
     ("social media", r"instagram\.com$"),
     ("support", r"support\..*"),
