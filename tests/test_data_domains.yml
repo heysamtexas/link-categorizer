@@ -31,3 +31,14 @@
 - href: "https://telegram.org/@example"
   expected: "social media"
 
+- href: "https://job-boards.greenhouse.io"
+  expected: "jobs"
+
+- href: "https://jobs.lever.co"
+  expected: "jobs"
+
+- href: "https://careers.gravityteam.co"
+  expected: "jobs"
+
+- href: "https://jobs.ashbyhq.com/"
+  expected: "jobs"
