@@ -24,3 +24,6 @@
 
 - href: "https://example.com/careers"
   expected: "jobs"
+
+- href: "https://example.com/support"
+  expected: "support"

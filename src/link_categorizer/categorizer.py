@@ -46,6 +46,7 @@ PATH_MATCHERS = [
     ("reviews", r"(testimonials|reviews|what-people-say)/?$"),
     ("services", r"(services|what-we-do|our-services)/?$"),
     ("signup", r"(signup|sign-up)/?$"),
+    ("support", r"(support)/?$"),
     ("team", r"(team|our-team|meet-the-team)/?$"),
     ("work", r"(work|projects|portfolio)/?$"),
 ]
