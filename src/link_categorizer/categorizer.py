@@ -36,13 +36,15 @@ DOMAIN_MATCHERS = [
 # Path matchers
 PATH_MATCHERS = [
     ("about", r"about(-us|-company)?/?$"),
-    ("blog post", r"blog/[^/]+/?$"),
+    ("blog", r"(blog)/?$"),
     ("community", r"(community|forum|discussion|groups)/?$"),
     ("contact", r"contact(-us)?/?$"),
     ("faq", r"(faqs?|frequently-asked-questions|help)/?$"),
     ("jobs", r"(jobs|careers?|work-with-us|opportunities|join-us|open-roles)/?$"),
     ("press", r"(press|press-room|press-kit)/?$"),
     ("pricing", r"(pricing|plans|buy-now|pricing-and-plans)/?$"),
+    ("podcast", r"(podcasts?)/?$"),
+    ("privacy", r"(privacy-policy|privacy)/?$"),
     ("reviews", r"(testimonials|reviews|what-people-say)/?$"),
     ("services", r"(services|what-we-do|our-services)/?$"),
     ("signup", r"(signup|sign-up)/?$"),

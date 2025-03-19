@@ -27,3 +27,12 @@
 
 - href: "https://example.com/support"
   expected: "support"
+
+- href: "https://example.com/podcasts"
+  expected: "podcast"
+
+- href: "https://example.com/privacy"
+  expected: "privacy"
+
+- href: "https://example.com/blog"
+  expected: "blog"
