@@ -39,8 +39,12 @@ PATH_MATCHERS = [
     ("blog", r"(blog)/?$"),
     ("community", r"(community|forum|discussion|groups)/?$"),
     ("contact", r"contact(-us)?/?$"),
+    ("cookie policy", r"cookie-?policy/?$"),
     ("faq", r"(faqs?|frequently-asked-questions|help)/?$"),
     ("jobs", r"(jobs|careers?|work-with-us|opportunities|join-us|open-roles)/?$"),
+    ("login", r"(login|sign-in)/?$"),
+    ("news", r"(news|updates|announcements|newsroom)/?$"),
+    ("newsletter", r"(newsletter|subscribe|email-signup)/?$"),
     ("press", r"(press|press-room|press-kit)/?$"),
     ("pricing", r"(pricing|plans|buy-now|pricing-and-plans)/?$"),
     ("podcast", r"(podcasts?)/?$"),
@@ -80,9 +84,6 @@ TEXT_MATCHERS = [
 # Patterns to ignore completely
 IGNORE_REGEXES = [
     r"javascript:",  # JavaScript pseudo-links
-    r"print=1|printable=true",  # Printer-friendly versions
-    r"utm_source|utm_medium|utm_campaign",  # UTM tracking links
-    r"sid=\d+|session_id=",  # Session IDs
     r"void\(0\)",  # JavaScript void links
     r"#$",  # Empty anchors
     r"^#[^/]",  # Page fragment links
