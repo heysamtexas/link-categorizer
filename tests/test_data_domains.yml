@@ -46,3 +46,15 @@
 - href: "https://jobs.ashbyhq.com/"
   expected: "jobs"
 
+- href: "https://trustpilot.com/review/example.com"
+  expected: "reviews"
+
+- href: "https://www.x.com/heysamtexas"
+  expected: "social media"
+
+- href: "https://x.com/heysamtexas"
+  expected: "social media"
+
+# tricky false positive for X (twitter)
+- href: "https://box.com/sdlfkjlsdfkjds"
+  expected: "unknown"

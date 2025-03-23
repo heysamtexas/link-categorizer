@@ -29,3 +29,11 @@
 - href: "https://lifeatexpediagroup.com/brands?utm_source=vrbo&%3Butm_medium=homepage%23brands-vrbo"
   title: "Careers"
   expected: "jobs"
+
+- href: "https://example.com/298394283794832"
+  title: "Developers"
+  expected: "developers"
+
+- href: "https://example.com/298394283794832"
+  title: "Investor Relations"
+  expected: "investor relations"
