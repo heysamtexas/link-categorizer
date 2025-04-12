@@ -46,3 +46,20 @@ class TestLinkCategorizer(unittest.TestCase):
             del test["title"]
             with self.subTest(test=test):
                 self.assertEqual(categorize_link(test), test["expected"])
+
+
+class TestDeduplicateLinks(unittest.TestCase):
+    def test_deduplicate_links(self):
+        test_data = [
+            {"href": "https://example.com", "text": "Example"},
+            {"href": "https://example.com", "text": "Example"},
+            {"href": "https://example.org", "text": "Example Org"},
+        ]
+
+        expected_result = [
+            {"category": "home", "href": "https://example.com", "text": "Example"},
+            {"category": "home", "href": "https://example.org", "text": "Example Org"},
+        ]
+
+        result = categorize_links(test_data)
+        self.assertEqual(result, expected_result)

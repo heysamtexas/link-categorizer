@@ -111,6 +111,28 @@ IGNORE_REGEXES = [
 ]
 
 
+def deduplicate_links(links: list[dict]) -> list[dict]:
+    """Remove duplicate links based on their URLs.
+
+    Args:
+        links: List of dictionaries containing link information
+
+    Returns:
+        List of dictionaries with duplicate URLs removed
+
+    """
+    seen_urls = set()
+    unique_links = []
+
+    for link in links:
+        url = link.get("href", "")
+        if url not in seen_urls:
+            unique_links.append(link)
+            seen_urls.add(url)
+
+    return unique_links
+
+
 def categorize_links(links: list[dict]) -> list[dict]:
     """Categorize a list of links based on a set of patterns.
 
@@ -128,6 +150,7 @@ def categorize_links(links: list[dict]) -> list[dict]:
         - category: The category of the link
 
     """
+    links = deduplicate_links(links)
     categorized_links = []
 
     for link_info in links:
