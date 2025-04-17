@@ -49,6 +49,9 @@
 - href: "https://trustpilot.com/review/example.com"
   expected: "reviews"
 
+- href: "https://uk.trustpilot.com/review/example.com"
+  expected: "reviews"
+
 - href: "https://www.x.com/heysamtexas"
   expected: "social media"
 
