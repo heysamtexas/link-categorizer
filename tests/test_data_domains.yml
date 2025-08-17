@@ -61,3 +61,9 @@
 # tricky false positive for X (twitter)
 - href: "https://box.com/sdlfkjlsdfkjds"
   expected: "unknown"
+
+- href: "https://www.snapchat.com/add/getcopper"
+  expected: "social media"
+
+- href: "https://se.linkedin.com/in/boom"
+  expected: "social media"

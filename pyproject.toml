@@ -1,6 +1,6 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["hatchling>=1.8.0"]
+build-backend = "hatchling.build"
 
 [project]
 name = "link_categorizer"
@@ -19,34 +19,82 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/heysamtexas/link-categorizer"
+Homepage = "https://github.com/heysamtexas/link-categorizer"
 "Bug Tracker" = "https://github.com/heysamtexas/link-categorizer/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/link_categorizer"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/README.md",
+    "/LICENSE",
+]
+
+[project.optional-dependencies]
+dev = [
+    "flit>=3.9.0",
+    "pre-commit>=2.21.0",
+    "ruff>=0.11.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "mypy>=1.4.0",
+    "bandit[toml]>=1.7.0,<1.8.0",
+    "types-PyYAML>=6.0.0",
+]
 
 [tool.ruff]
 line-length = 120
-target-version = "py312"
-
+target-version = "py37"
+include = ["src/**/*.py"]
 
 [tool.ruff.lint]
-# Add the `line-too-long` rule to the enforced rule set. By default, Ruff omits rules that
-# overlap with the use of a formatter, like Black, but we can override this behavior by
-# explicitly adding the rule.
+# Relaxed rules for tests
 ignore = [
     "E501",
-    "D203",
-    "D213",
-    "D100",
-    "COM812"
+    "D",
+    "ANN",
+    "S",
+    "PLR",
+    "COM",
+    "T20",
+    "FBT",
+    "EM",
+    "TRY",
+    "N",
+    "ARG",
+    "PTH",
+    "TD",
+    "FIX",
+    "ERA",
+    "TCH",
+    "SIM",
+    "G",
+    "BLE",
+    "RUF",
 ]
-select = ["ALL", "W2", "I", "B"]
+select = ["E", "F", "W", "I", "B", "C4", "UP", "YTT", "S", "DTZ", "RSE", "SLF", "SIM", "TID", "TCH", "ARG", "PTH", "ERA", "PD", "PGH", "PL", "TRY", "NPY", "RUF"]
 exclude = [
     "tests/*",
     ".idea/**",
 ]
 
-[dependency-groups]
-dev = [
-    "flit>=3.9.0",
-    "pre-commit>=2.21.0",
-    "ruff>=0.11.0",
-]
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ALL"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+exclude = ["tests/"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short --strict-markers"

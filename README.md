@@ -1,16 +1,16 @@
 # Link Categorizer
 
-A Python library that categorizes HTML links based on their domain names, 
+A Python library that categorizes HTML links based on their domain names,
 title text, and anchor text.
 
 ## Overview
 
-Link Categorizer analyzes an array of Python dictionaries representing HTML 
-anchor tags and assigns each link to a category based on its domain name. The 
-library extracts the domain from the `href` attribute and matches it against 
+Link Categorizer analyzes an array of Python dictionaries representing HTML
+anchor tags and assigns each link to a category based on its domain name. The
+library extracts the domain from the `href` attribute and matches it against
 known patterns to determine the most appropriate category.
 
-If a link's domain does not match any known patterns, it is assigned to the 
+If a link's domain does not match any known patterns, it is assigned to the
 "unknown" category by default.
 
 ## Installation

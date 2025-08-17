@@ -34,6 +34,7 @@ DOMAIN_MATCHERS = [
     ("social media", r"tiktok\.com$"),
     ("social media", r"twitter\.com$|www\.x\.com$|^x\.com$"),
     ("social media", r"instagram\.com$"),
+    ("social media", r"snapchat\.com$"),
     ("support", r"support\..*"),
 ]
 
@@ -111,7 +112,7 @@ IGNORE_REGEXES = [
 ]
 
 
-def deduplicate_links(links: list[dict]) -> list[dict]:
+def deduplicate_links(links: list[dict[str, str]]) -> list[dict[str, str]]:
     """Remove duplicate links based on their URLs.
 
     Args:
@@ -133,7 +134,7 @@ def deduplicate_links(links: list[dict]) -> list[dict]:
     return unique_links
 
 
-def categorize_links(links: list[dict]) -> list[dict]:
+def categorize_links(links: list[dict[str, str]]) -> list[dict[str, str]]:
     """Categorize a list of links based on a set of patterns.
 
     Args:
@@ -162,7 +163,7 @@ def categorize_links(links: list[dict]) -> list[dict]:
     return categorized_links
 
 
-def categorize_link(link_info: dict) -> str | None:  # noqa: C901, PLR0911, PLR0912
+def categorize_link(link_info: dict[str, str]) -> str | None:  # noqa: C901, PLR0911, PLR0912
     """Categorize a link based on a set of patterns.
 
     Args:

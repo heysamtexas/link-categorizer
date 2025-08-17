@@ -1,24 +1,19 @@
 # setup unit test for link_categorizer.py
 
+from pathlib import Path
 import unittest
 import yaml
-from src.link_categorizer.categorizer import categorize_links, categorize_link
+from link_categorizer.categorizer import categorize_links, categorize_link
 
 
 class TestLinkCategorizer(unittest.TestCase):
     def setUp(self):
-        # read from test_data.yml into self.data
-        with open("test_data_url_schemes.yml", "r") as file:
-            self.data_schemes = yaml.safe_load(file)
-
-        with open("test_data_domains.yml", "r") as file:
-            self.data_domains = yaml.safe_load(file)
-
-        with open("test_data_paths.yml", "r") as file:
-            self.data_paths = yaml.safe_load(file)
-
-        with open("test_data_titles.yml", "r") as file:
-            self.data_titles = yaml.safe_load(file)
+        # Use pathlib for cross-platform path handling
+        test_dir = Path(__file__).parent
+        self.data_schemes = yaml.safe_load((test_dir / "test_data_url_schemes.yml").read_text())
+        self.data_domains = yaml.safe_load((test_dir / "test_data_domains.yml").read_text())
+        self.data_paths = yaml.safe_load((test_dir / "test_data_paths.yml").read_text())
+        self.data_titles = yaml.safe_load((test_dir / "test_data_titles.yml").read_text())
 
     def test_categorize_link_schemes(self):
         for test in self.data_schemes:
