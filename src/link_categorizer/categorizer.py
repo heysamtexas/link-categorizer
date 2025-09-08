@@ -36,6 +36,12 @@ DOMAIN_MATCHERS = [
     ("social media", r"instagram\.com$"),
     ("social media", r"snapchat\.com$"),
     ("support", r"support\..*"),
+    ("code repository", r"github\.com$"),
+    ("code repository", r"gitlab\.com$"),
+    ("code repository", r"gitlab\..*"),
+    ("code repository", r"bitbucket\.org$"),
+    ("code repository", r"sourceforge\.net$"),
+    ("code repository", r"codeberg\.org$"),
 ]
 
 # Path matchers
@@ -134,6 +140,92 @@ def deduplicate_links(links: list[dict[str, str]]) -> list[dict[str, str]]:
     return unique_links
 
 
+# Repository platform patterns configuration
+REPO_PLATFORM_PATTERNS: dict[str, dict[str, str | list[str] | None]] = {
+    "github": {
+        "domain_pattern": r"github\.com$",
+        "repo_sections": r"/[^/]+/[^/]+/(issues|pulls?|commits?|releases?|wiki|settings|actions|security|graphs?|pulse|network|insights|deployments?)(/|$)",
+        "repo_path": r"^/[^/]+/[^/]+/?$",
+        "profile_paths": [r"^/orgs/[^/]+/?$", r"^/[^/]+/?$"],
+    },
+    "gitlab": {
+        "domain_pattern": r"gitlab\.(com|.*)",
+        "repo_sections": r"/[^/]+/[^/]+/-(issues|merge_requests|commits?|releases?|wikis?|settings|pipelines|deployments?)(/|$)",
+        "repo_path": r"^/[^/]+/[^/]+/?$",
+        "profile_paths": [r"^/[^/]+/?$"],
+    },
+    "bitbucket": {
+        "domain_pattern": r"bitbucket\.org$",
+        "repo_sections": r"/[^/]+/[^/]+/(issues|pulls?|commits?|downloads|wiki|settings|pipelines?)(/|$)",
+        "repo_path": r"^/[^/]+/[^/]+/?$",
+        "profile_paths": [r"^/[^/]+/?$"],
+    },
+    "sourceforge": {
+        "domain_pattern": r"sourceforge\.net$",
+        "repo_sections": None,  # SourceForge doesn't have standard repo subsections
+        "repo_path": r"/projects/[^/]+/?$",
+        "profile_paths": [r"/u/[^/]+/?$"],
+    },
+    "codeberg": {
+        "domain_pattern": r"codeberg\.org$",
+        "repo_sections": r"/[^/]+/[^/]+/(issues|pulls?|commits?|releases?|wiki|settings|actions?)(/|$)",
+        "repo_path": r"^/[^/]+/[^/]+/?$",
+        "profile_paths": [r"^/[^/]+/?$"],
+    },
+}
+
+
+def match_repo_platform(path: str, patterns: dict[str, str | list[str] | None]) -> str | None:
+    """Match a path against repository platform patterns.
+
+    Args:
+        path: The URL path to match
+        patterns: Dictionary containing the platform's URL patterns
+
+    Returns:
+        Category string or None if no match
+    """
+    # Check repository subsections first (most specific)
+    repo_sections = patterns["repo_sections"]
+    if repo_sections and isinstance(repo_sections, str):
+        if re.search(repo_sections, path, re.IGNORECASE):
+            return "code repository"
+
+    # Check if it's a repository path
+    repo_path = patterns["repo_path"]
+    if repo_path and isinstance(repo_path, str):
+        if re.search(repo_path, path, re.IGNORECASE):
+            return "code repository"
+
+    # Check if it's a profile path
+    profile_paths = patterns["profile_paths"]
+    if profile_paths and isinstance(profile_paths, list):
+        for profile_pattern in profile_paths:
+            if re.search(profile_pattern, path, re.IGNORECASE):
+                return "developer profile"
+
+    return None
+
+
+def categorize_code_repository_link(domain: str, path: str) -> str | None:
+    """Categorize links from code repository platforms.
+
+    Args:
+        domain: The domain of the URL
+        path: The path of the URL
+
+    Returns:
+        Category string or None if not applicable
+    """
+    # Check each platform configuration
+    for _platform_name, patterns in REPO_PLATFORM_PATTERNS.items():
+        domain_pattern = patterns["domain_pattern"]
+        if isinstance(domain_pattern, str) and re.search(domain_pattern, domain, re.IGNORECASE):
+            return match_repo_platform(path, patterns)
+
+    return None
+
+
 def categorize_links(links: list[dict[str, str]]) -> list[dict[str, str]]:
     """Categorize a list of links based on a set of patterns.
 
@@ -205,6 +297,11 @@ def categorize_link(link_info: dict[str, str]) -> str | None:  # noqa: C901, PLR
     # Check domain matchers
     for category, pattern in DOMAIN_MATCHERS:
         if re.search(pattern, domain, re.IGNORECASE):
+            # If it's a code repository domain, use specialized categorization
+            if category == "code repository":
+                repo_category = categorize_code_repository_link(domain, path)
+                if repo_category:
+                    return repo_category
             return category
 
     # Check path matchers

@@ -24,18 +24,15 @@ To install the package for development:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/link-categorizer.git
+git clone https://github.com/heysamtexas/link-categorizer.git
 cd link-categorizer
 
-# Create and activate a virtual environment (optional but recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+# Install with uv (recommended)
+uv pip install -e .[dev]
 
-# Install in development mode
-pip install -e .
-
-# Install development dependencies
-pip install -e ".[dev]"
+# Alternative: Create virtual environment first
+uv venv
+uv pip install -e .[dev]
 ```
 
 ## Usage
@@ -103,36 +100,21 @@ link-categorizer/
 
 ## Running Tests
 
-There are several ways to run the tests:
-
-### Method 1: Install the package in development mode
+To run the tests:
 
 ```bash
-# From the project root directory
-uv pip install -e .
-python -m unittest discover -s tests
-```
+# Run all tests
+uv run pytest tests/
 
-### Method 2: Use PYTHONPATH environment variable
+# Run with coverage
+uv run pytest --cov=src/link_categorizer tests/
 
-```bash
-# From the project root directory
-PYTHONPATH=. python -m unittest discover -s tests
-```
+# Run specific test
+uv run pytest tests/link_categorizer_test.py::test_categorize_link_domains -v
 
-### Method 3: Run with pytest (if installed)
-
-```bash
-# From the project root directory
-uv pip install pytest
-python -m pytest
-```
-
-To run a specific test file:
-
-```bash
-# From the project root directory
-python -m unittest tests.link_categorizer_test
+# Run code quality checks
+uv run ruff check src/
+uv run mypy src/
 ```
 
 ## Adding More Tests

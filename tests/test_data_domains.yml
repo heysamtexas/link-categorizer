@@ -67,3 +67,27 @@
 
 - href: "https://se.linkedin.com/in/boom"
   expected: "social media"
+
+- href: "https://github.com/heysamtexas"
+  expected: "developer profile"
+
+- href: "https://gitlab.com/username"
+  expected: "developer profile"
+
+- href: "https://bitbucket.org/teamname"
+  expected: "developer profile"
+
+- href: "https://github.com/heysamtexas/boom-repo"
+  expected: "code repository"
+
+- href: "https://gitlab.com/user/project"
+  expected: "code repository"
+
+- href: "https://github.com/org/repo/issues"
+  expected: "code repository"
+
+- href: "https://github.com/user/repo/pulls"
+  expected: "code repository"
+
+- href: "https://github.com/user/repo/commits"
+  expected: "code repository"
